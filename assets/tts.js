@@ -22,6 +22,7 @@
   let session = 0;       // 読み上げセッションID（停止・再開で無効化）
   let keepAlive = null;  // 途中停止を防ぐタイマー
   let lastPos = 0;       // 直近に読み上げた位置（停止時にカーソルを戻す）
+  let savedSel = { s: 0, e: 0 }; // blur時に保存した選択・カーソル位置
 
   if (!synth) {
     warn.style.display = 'block';
@@ -152,15 +153,19 @@
     return out;
   }
 
+  // blur時に選択・カーソル位置を保存（ボタンクリック時にフォーカスが外れる前に取得するため）
+  input.addEventListener('blur', () => {
+    savedSel = { s: input.selectionStart || 0, e: input.selectionEnd || 0 };
+  });
+
   // 読み上げ範囲を決める：
   //  範囲選択あり → その範囲だけ／カーソルのみ → その位置から末尾まで／未選択 → 全文
   function resolveRange(text) {
-    const focused = document.activeElement === input;
-    const s = input.selectionStart || 0;
-    const e = input.selectionEnd || 0;
-    if (focused && e > s) return { from: s, to: e };           // 選択範囲だけ読む
-    if (focused && s > 0)  return { from: s, to: text.length }; // カーソル位置から末尾まで
-    return { from: 0, to: text.length };                       // 全文
+    const s = savedSel.s;
+    const e = savedSel.e;
+    if (e > s) return { from: s, to: e };           // 選択範囲だけ読む
+    if (s > 0) return { from: s, to: text.length }; // カーソル位置から末尾まで
+    return { from: 0, to: text.length };             // 全文
   }
 
   function speak() {
@@ -213,6 +218,7 @@
     if (lastPos > 0 && lastPos <= input.value.length) {
       input.focus();
       input.setSelectionRange(lastPos, lastPos);
+      savedSel = { s: lastPos, e: lastPos }; // 続きから読み上げに備えて更新
     }
   });
   saveBtn.addEventListener('click', () => {
@@ -232,6 +238,7 @@
     synth.cancel();
     input.value = '';
     lastPos = 0;
+    savedSel = { s: 0, e: 0 };
     localStorage.removeItem(STORAGE_KEY);
     updateCount();
     finish();

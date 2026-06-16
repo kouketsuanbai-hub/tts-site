@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="テキスト読み上げ">
+  <rect width="32" height="32" rx="7" fill="#2f6f6a"/>
+  <path d="M7 13h3.5l4.5-3.6v13.2L10.5 19H7z" fill="#ffffff"/>
+  <path d="M19.5 11.8a6 6 0 0 1 0 8.4" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round"/>
+  <path d="M22.4 9.2a9.6 9.6 0 0 1 0 13.6" fill="none" stroke="#fbe9b0" stroke-width="1.9" stroke-linecap="round"/>
+</svg>

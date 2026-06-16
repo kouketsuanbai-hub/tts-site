@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>テキスト読み上げ｜完全無料・登録不要のブラウザ読み上げツール</title>
+<meta name="description" content="貼り付けて押すだけ。文字数制限なし・登録不要・完全無料のテキスト読み上げツール。入力テキストはサーバーに送信せず、ブラウザ内蔵の音声でそのまま読み上げます。文の途中を選んでその位置から読み上げることもできます。">
+<link rel="canonical" href="https://tts-site.pages.dev/">
+<meta name="robots" content="index, follow">
+
+<!-- OGP -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="テキスト読み上げ｜完全無料・登録不要">
+<meta property="og:description" content="貼って押すだけ。文字数制限なし・送信なし・登録不要のテキスト読み上げツール。">
+<meta property="og:url" content="https://tts-site.pages.dev/">
+<meta property="og:image" content="https://tts-site.pages.dev/assets/og.png">
+<meta property="og:site_name" content="テキスト読み上げ">
+<meta property="og:locale" content="ja_JP">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="テキスト読み上げ｜完全無料・登録不要">
+<meta name="twitter:description" content="貼って押すだけ。文字数制限なし・送信なし・登録不要のテキスト読み上げツール。">
+<meta name="twitter:image" content="https://tts-site.pages.dev/assets/og.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+
+<!-- 構造化データ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "テキスト読み上げ",
+  "url": "https://tts-site.pages.dev/",
+  "description": "完全無料・登録不要のブラウザ完結型テキスト読み上げツール。入力テキストを外部に送信せず、文字数制限なしで読み上げます。",
+  "applicationCategory": "UtilityApplication",
+  "operatingSystem": "Web ブラウザ",
+  "browserRequirements": "Web Speech API 対応ブラウザ",
+  "inLanguage": "ja",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>テキスト読み上げ</h1>
+    <span class="sub">Web Speech API / ブラウザ内蔵音声</span>
+  </header>
+
+  <div class="editor">
+    <div id="highlight" class="layer" aria-hidden="true"></div>
+    <textarea id="input" class="layer" aria-label="読み上げるテキスト" placeholder="ここにテキストを貼り付け、または入力してください。長文も分割して読み上げます。"></textarea>
+  </div>
+  <div class="meta">
+    <span id="count">0 文字</span>
+    <span id="status" role="status" aria-live="polite"></span>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <label class="k" for="voice">音声</label>
+      <select id="voice"></select>
+    </div>
+    <div class="row">
+      <label class="k" for="rate">速度</label>
+      <div class="slider-row">
+        <input type="range" id="rate" min="0.5" max="2" step="0.1" value="1" aria-label="読み上げ速度">
+        <span class="val" id="rateVal">1.0x</span>
+      </div>
+    </div>
+    <div class="row">
+      <label class="k" for="pitch">高さ</label>
+      <div class="slider-row">
+        <input type="range" id="pitch" min="0" max="2" step="0.1" value="1" aria-label="声の高さ">
+        <span class="val" id="pitchVal">1.0</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="play" class="primary" aria-label="読み上げを開始">読み上げ</button>
+    <button id="pause" disabled aria-label="一時停止／再開">一時停止</button>
+    <button id="stop" disabled aria-label="読み上げを停止">停止</button>
+    <button id="save" aria-label="テキストをファイルに保存">保存</button>
+    <button id="clear" aria-label="テキストを消去">クリア</button>
+  </div>
+
+  <div id="warn" class="warn" role="alert"></div>
+
+  <div class="note">
+    音声はお使いの端末・ブラウザに内蔵されたものを使用します。利用できる音声は環境により異なります。<br>
+    長文は文（。！？・改行）単位で自動分割し、順番に読み上げます。発話中は定期的にタイマーをリセットして途中停止を防ぎます。<br>
+    文の途中をクリックしてカーソルを置く、または範囲を選択してから「読み上げ」を押すと、その位置から読み上げます。範囲を選択した場合はその範囲だけを読み上げます。<br>
+    停止すると直前まで読んでいた位置にカーソルが移ります。そのまま「読み上げ」を押すと続きから再生できます（読み上げ位置の追跡に対応したブラウザのみ）。<br>
+    読み上げ中のハイライトは、ブラウザが文字位置イベントを発火する場合のみ動作します（Chrome 等で対応）。<br>
+    音声ファイル（mp3 等）としての保存はこの方式では行えません。
+  </div>
+
+  <footer class="site-footer">
+    <nav>
+      <a href="index.html">ホーム</a>
+      <a href="about.html">使い方・特徴</a>
+      <a href="guide/chatgpt-tts.html">ChatGPT読み上げ</a>
+      <a href="guide/long-text-tts.html">長文の校正</a>
+      <a href="privacy.html">プライバシー</a>
+    </nav>
+    <p class="copyright">ブラウザだけで動く、無料のテキスト読み上げツール。</p>
+  </footer>
+</div>
+
+<script src="assets/tts.js"></script>
+</body>
+</html>

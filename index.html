@@ -41,6 +41,44 @@
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "JPY" }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "無料で使えますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "はい、完全無料です。登録もログインも不要で、すべての機能を無料で利用できます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "文字数の制限はありますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "ありません。長文は文単位で自動分割して連続再生します。ChatGPTの回答やレポート全文など、どれだけ長くても読み上げできます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "入力したテキストはサーバーに送信されますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "送信されません。読み上げはブラウザの内蔵機能だけで完結するため、テキストが外部に送られることはありません。社内文書や機密情報でも安心して使えます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "アプリのインストールは必要ですか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "不要です。Chrome・Edge・Safari などのブラウザで直接使えます。インストールも会員登録も必要ありません。" }
+    },
+    {
+      "@type": "Question",
+      "name": "途中から読み上げることはできますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "できます。文の途中をクリックしてカーソルを置いてから「読み上げ」を押すと、その位置から再生します。範囲を選択してから押すと、その部分だけを読み上げます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "スマートフォンでも使えますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "使えます。ただしiPhone（Safari）は画面をロックしたりバックグラウンドにすると読み上げが停止します。画面を表示したままお使いください。" }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -88,6 +126,17 @@
   </div>
 
   <div id="warn" class="warn" role="alert"></div>
+
+  <section class="feature-section">
+    <h2>こんな時に使えます</h2>
+    <ul class="feature-list">
+      <li><span class="feat-label">ChatGPTの回答を耳で聞く</span>長い回答をコピペして再生するだけ。画面を見続けなくていい。</li>
+      <li><span class="feat-label">原稿・文章の読み上げ校正</span>目で読むと見落とす誤字も、耳で聞くと気づきやすい。</li>
+      <li><span class="feat-label">社内文書・機密テキストも安心</span>テキストはサーバーに送信しない。ブラウザの中だけで完結。</li>
+      <li><span class="feat-label">長文を一括で読み上げ</span>文字数制限なし。レポート・メール・記事全文をそのまま貼り付けられる。</li>
+      <li><span class="feat-label">インストール不要・登録不要</span>ブラウザを開いてテキストを貼るだけ。アプリも会員登録も不要。</li>
+    </ul>
+  </section>
 
   <div class="note">
     音声はお使いの端末・ブラウザに内蔵されたものを使用します。利用できる音声は環境により異なります。<br>

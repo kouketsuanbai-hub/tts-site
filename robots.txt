@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tts-site.pages.dev/sitemap.xml
+Sitemap: https://tts-site-c5m.pages.dev/sitemap.xml
